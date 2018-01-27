@@ -1,2 +1,3 @@
 /Transmission/Temp/*
-
+/Transmission/Library/metadata/*
+*.log
