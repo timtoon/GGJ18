@@ -6,31 +6,44 @@ public class Cell : MonoBehaviour {
 
 
 	private delegate void StatePointer();
-	private static StatePointer currentState;
+	private StatePointer currentState;
 
     public bool isEvil = true;
 	public float health = 5f;
 
 	public float loResponseFreq;
     public float hiResponseFreq;
-	private float maxHealth;
+	public float maxHealth = 5f;
+	public float maxSize = 5f;
+	// Original Color
+	private Color OriginalColor;
 
-    private Vector2 position;
 
 
+
+	//------------------------- System functions.
 	// Use this for initialization
 	void Start () 
 	{
+
+		// Testing only///
+		OriginalColor = gameObject.GetComponent<SpriteRenderer>().color;
+
+
+
 		maxHealth = health;
 		//currentState = isOK;
 		//currentState = new StatePointer(isOK);
 		setStateOk();
+
+		
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		currentState();
+
 		/*
         if(health <= 0) {
             // Play death animation
@@ -48,19 +61,47 @@ public class Cell : MonoBehaviour {
 		*/
 	}
 
-    void IsHurting()
+	// ------------------- Object updates...
+	void setFrequency(float LowFrequency, float HighFrequency)
 	{
-		health = health - Time.deltaTime;
+		loResponseFreq = LowFrequency;
+		hiResponseFreq = HighFrequency;
+	}
+	private void setSize(float size)
+	{
+		gameObject.transform.localScale = new Vector3(size, size);
+	}
+	//------------------------------ States
+
+	private void IsHurting()
+	{
+		health -= Time.deltaTime;
 		if (health < 0)
+		{
 			die();
+			gameObject.active = false;
+			//Destroy(gameObject);
+		}
+		else
+		{
+			setSize((1 - (health / maxHealth)) * maxSize + 1);
+		}
 	}
 
-    void isOK()
+
+    private void isOK()
 	{
-		health = health + Time.deltaTime;
+		//health = (health < maxHealth) ? health + Time.deltaTime : maxHealth;
+		setSize((1 - (health / maxHealth)) * maxSize + 1);  
+	}
+	public void dead()
+	{
+
 	}
 
-    void Activate(float newFrequency)
+	//--------------------------------- Interaction
+
+	public void Activate(float newFrequency)
 	{
 		if (newFrequency >= loResponseFreq && newFrequency <= hiResponseFreq)
 		{
@@ -72,21 +113,31 @@ public class Cell : MonoBehaviour {
 		}
 	}
 
-    void setStateDying()
+	//---------------------------------------- Changes of States.
+    public void setStateDying()
 	{
 		currentState = IsHurting;
+		//print("I'm now hurting");
+
+		// Testing only....
+		gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
         // Scale the cell big and small if it's in the response range
 	}
 
-    void setStateOk()
+    public void setStateOk()
 	{
 		currentState = isOK;
-        // transform back to 1:1 scale;
+		//print("I'm now OK");
+		// Testing only....
+		gameObject.GetComponent<SpriteRenderer>().color = OriginalColor;
+
+		// transform back to 1:1 scale;
 	}
 
-    void die()
+	public void die()
 	{
-		Game.instance.SetDie(isEvil);
-		Destroy(gameObject);
+		currentState = dead;
+		Game.instance.SetDie(this.gameObject);
+		//Destroy(gameObject);
 	}
 }
