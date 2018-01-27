@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio for Mac
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transmission", "Transmission.csproj", "{718D2145-BD65-0741-6057-C63437504A2F}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transmission", "Assembly-CSharp.csproj", "{31975DD5-E1C8-9E0E-4C32-2B80B6DF89D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +9,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{718D2145-BD65-0741-6057-C63437504A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{718D2145-BD65-0741-6057-C63437504A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{718D2145-BD65-0741-6057-C63437504A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{718D2145-BD65-0741-6057-C63437504A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31975DD5-E1C8-9E0E-4C32-2B80B6DF89D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31975DD5-E1C8-9E0E-4C32-2B80B6DF89D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31975DD5-E1C8-9E0E-4C32-2B80B6DF89D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31975DD5-E1C8-9E0E-4C32-2B80B6DF89D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
