@@ -310,6 +310,27 @@
     <Compile Include="Assets\Scripts\CellStateController.cs" />
     <Compile Include="Assets\Scripts\CreateAndWinLose.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\FlexibleUI\FlexibleUI.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\FlexibleUI\FlexibleUIButton.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\FlexibleUI\FlexibleUIData.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\FlexibleUI\FlexibleUIImage.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\FlexibleUI\FlexibleUISlider.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\FlexibleUI\FlexibleUIText.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\Menu\DontDestroy.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\Menu\EventSystemChecker.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\Menu\MenuObject.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\Menu\MenuSettings.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\Menu\Pause.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\Menu\PlayMusic.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\Menu\QuitApplication.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\Menu\SetAudioLevels.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\Menu\ShowPanels.cs" />
+    <Compile Include="Assets\TitleMenu Assets\Scripts\Menu\StartOptions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\TitleMenu Assets\Fonts\OpenSans\License!.txt" />
+    <None Include="Assets\TitleMenu Assets\GameJamTemplateReadMe.txt" />
+    <None Include="Assets\TitleMenu Assets\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
