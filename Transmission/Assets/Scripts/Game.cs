@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : MonoBehaviour 
+public class Game : MonoBehaviour
 {
-	public static Game instance;
+    public static Game instance;
 
     public int BadCells;
     public int GoodCells;
@@ -34,18 +34,18 @@ public class Game : MonoBehaviour
     private Cell cellPrefab;
 
     private void Awake()
-	{
-		if(instance != null)
-		{
-			Destroy(gameObject);
-		}
-		instance = this;
-		DontDestroyOnLoad(instance);
-	}
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        instance = this;
+        DontDestroyOnLoad(instance);
+    }
 
     // Use this for initialization
-	void Start () 
-	{
+    void Start()
+    {
         // Init the alowed Frequency range
         startingRange = (loFrequency + hiFrequency) / 2;
         randomOffset = startingRange / 2;
@@ -66,11 +66,11 @@ public class Game : MonoBehaviour
         }
 
         // randomize Cell positions
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         OKToKillCells = OkToKillCells();
 
         //// This doesn't seem very efficient, counting 100 objects every frame.
@@ -89,44 +89,45 @@ public class Game : MonoBehaviour
     }
 
     public void SetDie(bool isEvil)
-	{
-		if (isEvil)
-		{
-			BadCells--;
-			if (BadCells < 1)
-			{
-				winLevel();		
-			}
-		}
-		else
-		{
-			GoodCells--;
-			if (GoodCells < 1)
-			{
-				loseLevel();
-			}
-		}
-	}
+    {
+        if (isEvil)
+        {
+            BadCells--;
+            if (BadCells < 1)
+            {
+                winLevel();
+            }
+        }
+        else
+        {
+            GoodCells--;
+            if (GoodCells < 1)
+            {
+                loseLevel();
+            }
+        }
+    }
 
     public void winLevel()
-	{
-		print("You won the level");
-	}
+    {
+        print("You won the level");
+    }
 
     public void loseLevel()
-	{
-		print("You lost the level");
-	}
+    {
+        print("You lost the level");
+    }
 
     // Map the screen width to the max hiFrequency, then add the lowest value
     // This shouldn't happen outside debugging, but I'm accounting for when the mouse goes outside the screen
-    private int GetFrequency() {
-        var f = (int) (Input.mousePosition.x * (hiFrequency - loFrequency) / Screen.width) + loFrequency;
+    private int GetFrequency()
+    {
+        var f = (int)(Input.mousePosition.x * (hiFrequency - loFrequency) / Screen.width) + loFrequency;
 
         if (f < loFrequency)
         {
             return loFrequency;
-        } 
+        }
         else if (f > hiFrequency)
         {
             return hiFrequency;
@@ -135,7 +136,8 @@ public class Game : MonoBehaviour
     }
 
     // Delay the StartKilling flag until Frequency is consistent for attackDelay seconds
-    private bool OkToKillCells() {
+    private bool OkToKillCells()
+    {
         frequency = GetFrequency();
 
         if (frequency == frequencyOld)
@@ -161,19 +163,25 @@ public class Game : MonoBehaviour
     {
         var c = new Cell();
 
-        if(isEnemy) {
+        if (isEnemy)
+        {
             c.tag = "BadCell";
-        } else {
+        }
+        else
+        {
             c.tag = "GoodCell";
         }
 
         c.isEvil = isEnemy;
 
-        var range = startingRange - ((Random.value * randomOffset) + randomOffset/2);
+        var range = startingRange - ((Random.value * randomOffset) + randomOffset / 2);
 
-        if(isEnemy) {
+        if (isEnemy)
+        {
             range += difficultyModifier / 2;
-        } else {
+        }
+        else
+        {
             range -= difficultyModifier / 2;
         }
 
