@@ -137,7 +137,7 @@ public class StartOptions : MonoBehaviour {
         }
 
         HideDelayed();
-        SceneManager.LoadScene("Transmission", LoadSceneMode.Single);
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
         //Debug.Log("Coroutine done. Game started in same scene! Put your game starting stuff here.");
     }
 
