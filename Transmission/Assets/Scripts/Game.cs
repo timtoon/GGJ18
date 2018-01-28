@@ -270,12 +270,19 @@ public class Game : MonoBehaviour
 		float xPosition;
 		float DistFromCenter;
 		Vector3 position = new Vector3();
-
 		DistFromCenter = (Random.value - 0.5f) * 2f * radius;
 		xPosition = (Random.value - 0.5f) * 2f * radius;
-		position.x = (float)xPosition;
-		position.y = (Mathf.Abs(DistFromCenter - xPosition) / (DistFromCenter - xPosition)) * Mathf.Pow(Mathf.Abs(Mathf.Pow(DistFromCenter, 2) - Mathf.Pow(xPosition, 2)), 0.5f);
 
+        float angle = 6.28f * Random.value;
+        float dist = (Random.value - 0.5f) * 2f * radius;
+
+        position.x = Mathf.Cos(angle) * dist-3.5f;//(float)xPosition - 3;
+        position.y = Mathf.Sin(angle) * dist;
+        // was
+        /*
+        (Mathf.Abs(DistFromCenter - xPosition) / (DistFromCenter - xPosition)) * 
+            Mathf.Pow(Mathf.Abs(Mathf.Pow(DistFromCenter, 2) - Mathf.Pow(xPosition, 2)), 0.5f);
+            */
 		c.transform.SetPositionAndRotation(position, c.transform.localRotation);
 
         // It would be nice to randomly assign the SpriteRendered.OrderInLayer value to a unique number.
