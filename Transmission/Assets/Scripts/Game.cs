@@ -186,10 +186,15 @@ public class Game : MonoBehaviour
 	public void winLevel()
 	{
 		print("You won the level");
+        AudioSource[] endSFX = GetComponents<AudioSource>();
+        endSFX[Random.Range(0, 3)].Play();
+
 	}
 	public void loseLevel()
 	{
 		print("You lost the level");
+        AudioSource[] endSFX = GetComponents<AudioSource>();
+        endSFX[Random.Range(3, 6)].Play();
 	}
 
 	//----------------------------------------- POPULATIONS
