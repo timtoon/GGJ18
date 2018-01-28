@@ -10,7 +10,7 @@ public class Cell : MonoBehaviour {
 	private StatePointer OkState;
 
 	public bool isEvil = true;
-	public float Health = 5f;
+	public float Health = 3f;
 	public float Scale = 1f;
 	
 	public float loResponseFreq;
