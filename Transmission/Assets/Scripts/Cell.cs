@@ -25,7 +25,7 @@ public class Cell : MonoBehaviour {
 	{
 		// Testing only///
 		OriginalColor = gameObject.GetComponent<SpriteRenderer>().color;
-
+        OkState = dead;
 		setStateOk();
 	}
 	
