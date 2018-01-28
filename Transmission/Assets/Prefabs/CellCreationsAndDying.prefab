@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 4703640086274034}
   - component: {fileID: 212460759865434080}
   - component: {fileID: 114977321518429548}
+  - component: {fileID: 95766707628061012}
   m_Layer: 0
   m_Name: BadCell
   m_TagString: BadCell
@@ -85,6 +86,7 @@ GameObject:
   - component: {fileID: 4342932095631434}
   - component: {fileID: 212972827808753034}
   - component: {fileID: 114675782966101614}
+  - component: {fileID: 95757732297187970}
   m_Layer: 0
   m_Name: GoodCell
   m_TagString: GoodCell
@@ -161,6 +163,40 @@ Transform:
   m_Father: {fileID: 4658627468906358}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &95757732297187970
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1969323487496194}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2bb39eb72d39a4a27b81af8a44292e4c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95766707628061012
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1921774853293370}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 46631831172a34b3ca6252f3b881b611, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114278764355686822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -172,11 +208,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc54e071a7c446febab497db9935969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoodCells: 0
-  GoodCellObject: {fileID: 0}
-  BadCells: 0
-  BadCellObject: {fileID: 0}
-  radius: 0
+  GoodCells: 30
+  GoodCellObject: {fileID: 1969323487496194}
+  BadCells: 30
+  BadCellObject: {fileID: 1921774853293370}
+  radius: 1
   frequencyAttackEnable: 0
   cfr_startingRange: 2000
   cfr_randomOffset: 950
@@ -229,6 +265,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -244,6 +281,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -271,6 +309,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -286,6 +325,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -313,6 +353,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -328,6 +369,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -336,8 +378,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.07363093, g: 0.9705882, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 75922c61937ab5e4b98784263400ac67, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
