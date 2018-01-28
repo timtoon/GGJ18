@@ -20,6 +20,7 @@ public class WaveEffect : MonoBehaviour
     public float OFFSET_Z = 1.0f;
     public float SCALE_X = 1.0f;
     public float SCALE_Y = 1.0f;
+    public float MIN_AMPLITUDE = 1.0f;
     private int lengthOfLineRenderer = 512;
     private float[] buffer;
     private int MAX_BUFFER = 512;
@@ -89,7 +90,7 @@ public class WaveEffect : MonoBehaviour
             amp_acc -= 0.01f;
             amp_acc = Mathf.Max(amp_acc, MIN_AMP_ACC);
             amplitude -= 0.05f;
-            if (amplitude < 0.0f) amplitude = 0.0f;
+            if (amplitude < MIN_AMPLITUDE) amplitude= MIN_AMPLITUDE;
         }
         wavelength = Mathf.Max(MIN_WAVE_LENGTH, ((float)(Screen.width - mousePos.x)) / ((float)Screen.width) * MAX_WAVE_LENGTH);
 
