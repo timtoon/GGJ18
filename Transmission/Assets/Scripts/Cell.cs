@@ -97,7 +97,7 @@ public class Cell : MonoBehaviour {
 		if (health < 0)
 		{
 			die();
-			gameObject.active = false;
+			gameObject.SetActive(false);
 			//Destroy(gameObject);
 		}
 		else

@@ -9,8 +9,6 @@ public class Game : MonoBehaviour
 {
 	public static Game instance;
 
-	
-
 	public int GoodCells;
 	//public float GoodCellHealth;
 	public GameObject GoodCellObject;
@@ -20,9 +18,6 @@ public class Game : MonoBehaviour
 	public GameObject BadCellObject;
 
 	public float radius;
-
-
-
 
 
 	// Delay the killing action of the frequency
@@ -100,7 +95,7 @@ public class Game : MonoBehaviour
 		if (frequency != frequencyOld)
 		{
 			GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>().text = "" + frequency;
-			print("Updating Frequency");
+//			print("Frequency: "+frequency);
 			InputDataUpdateFrequency(frequency);
 			frequencyOld = frequency;
 		}
@@ -129,11 +124,6 @@ public class Game : MonoBehaviour
 		}
 		return false;
 	}
-
-
-
-
-
 
 	// Map the screen width to the max hiFrequency, then add the lowest value
 	// This shouldn't happen outside debugging, but I'm accounting for when the mouse goes outside the screen
@@ -165,14 +155,6 @@ public class Game : MonoBehaviour
 		}
 			//Cell C = Cells[x].get<Cell>();
 	}
-
-
-
-
-
-
-
-
 
 	//----------------------------------------- End of game Checking
 
@@ -210,19 +192,11 @@ public class Game : MonoBehaviour
 		print("You lost the level");
 	}
 
-
-
-
-
-
-
-
-
-
 	//----------------------------------------- POPULATIONS
 
 	public void populateDish()
 	{
+		Debug.Log ("populateDish");
 		for (int x = 0; x < GoodCells; x++)
 		{
 			Cells.Add(CreateGoodCell());
@@ -239,6 +213,7 @@ public class Game : MonoBehaviour
 	{
 		return null;
 	}
+
 	public void SetCellFrequencyRange(Cell c)
 	{
 
@@ -256,7 +231,8 @@ public class Game : MonoBehaviour
 		c.loResponseFreq = range - Random.value * cfr_randomVariance;
 		c.hiResponseFreq = range + Random.value * cfr_randomVariance;
 	}
-    private GameObject CreateGoodCell()
+
+	private GameObject CreateGoodCell()
     {
 		GameObject myCell = Instantiate(GoodCellObject);
 		//instantiate Cell
@@ -264,21 +240,11 @@ public class Game : MonoBehaviour
 		myCell.tag = "Player";
 		Cell c = myCell.GetComponent<Cell>();
         c.isEvil = false;
-
-
-
-
-
-		// set the response range
 		SetCellFrequencyRange(c);
-		//c.loResponseFreq = loFrequency - responseVariance - (Random.value * responseVariance);
-		//c.hiResponseFreq = hiFrequency - responseVariance + (Random.value * responseVariance);
-
 		placeCell(myCell);
-        return myCell;
 
+		return myCell;
     }
-
 
 	private GameObject CreateBadCell()
     {
@@ -286,25 +252,18 @@ public class Game : MonoBehaviour
 		//var c = new Cell();
 		Cell c = myCell.GetComponent<Cell>();
 		//c.isEvil = true;
-		//c.tag = "Enemy";
+		//c.tag = "BadCell";
 
-		// set the response range
 		SetCellFrequencyRange(c);
-		//c.loResponseFreq = loFrequency + responseVariance - (Random.value * responseVariance);
-		//c.hiResponseFreq = hiFrequency + responseVariance + (Random.value * responseVariance);
-
 		placeCell(myCell);
 
 		return myCell;
     }
 
-
-
 	private void placeCell(GameObject c)
 	{
 		float xPosition;
 		float DistFromCenter;
-		float asquared;
 		Vector3 position = new Vector3();
 
 		DistFromCenter = (Random.value - 0.5f) * 2f * radius;
