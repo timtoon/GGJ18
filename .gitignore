@@ -21,12 +21,12 @@ sysinfo.txt
 # ===================================== #
 [Ee]xported[Oo]bj/
 .vs/
-/*.userprefs
+*/*.userprefs
 */*.csproj
 /*.pidb
 *.pidb.meta
 /*.suo
-*/*.sln*
+*.sln*
 /*.user
 /*.unityproj
 /*.booproj
