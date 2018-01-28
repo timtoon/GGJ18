@@ -285,13 +285,13 @@ public class Game : MonoBehaviour
             */
 		c.transform.SetPositionAndRotation(position, c.transform.localRotation);
 
-        // It would be nice to randomly assign the SpriteRendered.OrderInLayer value to a unique number.
-        // As it is right now, all Bad Cells are on Layer 0, and all Good Cells are on Layer 1.
+		// Add a check to ensure overlapping sprites are not on the same layer
+		c.GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt (Random.value * (GoodCells + BadCells));
 	}
 
     void SetDifficulty(int level)
     {
-        var totalCells = 200;
+		var totalCells = Mathf.RoundToInt(Mathf.Pow (2, level)) + 2;
         var badToGoodCellRatio = 0.9f + (level * 0.4f);
 
         BadCells = (int) (totalCells * badToGoodCellRatio / (badToGoodCellRatio + 1));
