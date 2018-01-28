@@ -32,7 +32,7 @@ public class Game : MonoBehaviour
 	private int cfr_startingRange = 3000;
 	private int cfr_randomOffset = 950;
 	private int cfr_randomVariance = 475;
-	private int cfr_difficultyModifier = 475; // Overlap between Bad/Good Cells; lower is harder.
+	private int cfr_difficultyModifier = 300; // Overlap between Bad/Good Cells; lower is harder.
 	public int cfr_loFrequency = 100;
 	public int cfr_hiFrequency = 4000;
 
@@ -82,12 +82,12 @@ public class Game : MonoBehaviour
 	}
 
 	void DirectEffect()
-	{ 
+	{
 		// Get the X position of the mouse
 		int frequency = GetFrequency();
 		if (frequency != frequencyOld)
 		{
-			GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>().text = "" + frequency;
+            GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>().text = frequency.ToString();
 //			print("Frequency: "+frequency);
 			InputDataUpdateFrequency(frequency);
 			frequencyOld = frequency;
@@ -279,7 +279,7 @@ public class Game : MonoBehaviour
 
     void SetDifficulty(int level)
     {
-        var totalCells = 1000;
+        var totalCells = 200;
         var badToGoodCellRatio = 0.9f + (level * 0.4f);
 
         BadCells = (int) (totalCells * badToGoodCellRatio / (badToGoodCellRatio + 1));

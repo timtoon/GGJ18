@@ -32,7 +32,7 @@ public class Cell : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		currentState();
+        currentState();
 	}
 
 	// ------------------- Object updates...
@@ -48,9 +48,9 @@ public class Cell : MonoBehaviour {
 
 	private void IsHurting()
 	{
-		Health -= Time.deltaTime;
+        Health -= Time.deltaTime;
         Shake();
-		if (Health < 0)
+        if (Health < 0)
 		{
 			die();
 			gameObject.SetActive(false);
@@ -87,21 +87,17 @@ public class Cell : MonoBehaviour {
     public void setStateDying()
 	{
 		currentState = IsHurting;
-		//print("I'm now hurting");
 
-		// Testing only....
+        // Testing only....
 		gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
-        // Scale the cell big and small if it's in the response range
 	}
 
     public void setStateOk()
 	{
 		currentState = OkState;
-		//print("I'm now OK");
-		// Testing only....
-		gameObject.GetComponent<SpriteRenderer>().color = OriginalColor;
 
-		// transform back to 1:1 scale;
+        // Testing only....
+		gameObject.GetComponent<SpriteRenderer>().color = OriginalColor;
 	}
 
 	public void die()
