@@ -79,7 +79,8 @@ public class Cell : MonoBehaviour {
     public void setStateDying()
 	{
 		currentState = IsHurting;
-
+        Animator animator = gameObject.GetComponent<Animator>();
+        animator.SetBool("ishurting", true);
         // Testing only....
 		gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
 	}
@@ -87,7 +88,8 @@ public class Cell : MonoBehaviour {
     public void setStateOk()
 	{
 		currentState = OkState;
-
+        Animator animator = gameObject.GetComponent<Animator>();
+        animator.SetBool("ishurting", false);
         // Testing only....
 		gameObject.GetComponent<SpriteRenderer>().color = OriginalColor;
 	}
