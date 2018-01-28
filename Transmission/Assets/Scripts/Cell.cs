@@ -79,8 +79,12 @@ public class Cell : MonoBehaviour {
     public void setStateDying()
 	{
 		currentState = IsHurting;
+        //play hurting animation
         Animator animator = gameObject.GetComponent<Animator>();
         animator.SetBool("ishurting", true);
+        //play hurting SFX
+        AudioSource[] hurtingSFX = GetComponents<AudioSource>();
+        hurtingSFX[Random.Range(0, 3)].Play();
         // Testing only....
 		gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
 	}
