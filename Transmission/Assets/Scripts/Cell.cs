@@ -58,14 +58,6 @@ public class Cell : MonoBehaviour {
 		}
 	}
 
-	private void isOKRegenerate()
-	{
-	}
-
-    private void isOK()
-	{
-	}
-
     public void dead()
 	{
 	}
