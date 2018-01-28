@@ -106,13 +106,9 @@ public class Cell : MonoBehaviour {
 
 	public void die()
 	{
-<<<<<<< HEAD
-        currentState = dead;
-=======
 		currentState = dead;
         Scale += 0.1f;
         setSize(Scale);
->>>>>>> 5321e1c430f78bdb866a2c75f0e35e06c355dc10
 		Game.instance.SetDie(this.gameObject);
 		//Destroy(gameObject);
 	}

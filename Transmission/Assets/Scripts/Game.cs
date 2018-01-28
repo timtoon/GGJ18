@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
 
 	public float radius;
 
+    public int Level = 1;
 
 	// Delay the killing action of the frequency
 	private static float frequencyAttackDelay_Static = 1f;
@@ -28,10 +29,10 @@ public class Game : MonoBehaviour
 	public bool frequencyAttackEnable;
 
 	// Parameters for Cell Frequency Response range
-	public int cfr_startingRange = 2000;
-	public int cfr_randomOffset = 950;
-	public int cfr_randomVariance = 475;
-	public int cfr_difficultyModifier = 475; // Overlap between Bad/Good Cells; lower is harder. 475 is the max, 1 the min.
+	private int cfr_startingRange = 3000;
+	private int cfr_randomOffset = 950;
+	private int cfr_randomVariance = 475;
+	private int cfr_difficultyModifier = 475; // Overlap between Bad/Good Cells; lower is harder.
 	public int cfr_loFrequency = 100;
 	public int cfr_hiFrequency = 4000;
 
@@ -53,19 +54,12 @@ public class Game : MonoBehaviour
     // Use this for initialization
 	void Start () 
 	{
-		// Init the playfield
-		// Populate with 100 or so Cells
+        InitFrequency();
+        SetDifficulty(Level);
 		populateDish();
-		//Cells.Add(CreateGoodCell());
-
-		// These are the response ranges
-		initFrequency();
-
-        // randomize their position
-        // create the Cells (51%+ evil)
 	}
 
-	void initFrequency()
+	void InitFrequency()
 	{
 		cfr_startingRange = (cfr_loFrequency + cfr_hiFrequency) / 2;
 		cfr_randomOffset = cfr_startingRange / 2;
@@ -91,7 +85,6 @@ public class Game : MonoBehaviour
 	{ 
 		// Get the X position of the mouse
 		int frequency = GetFrequency();
-		//frequency = 5;
 		if (frequency != frequencyOld)
 		{
 			GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>().text = "" + frequency;
@@ -141,7 +134,6 @@ public class Game : MonoBehaviour
 		}
 		return f;
 	}
-
 
 	public void InputDataUpdateFrequency(float frequency)
 	{
@@ -245,8 +237,7 @@ public class Game : MonoBehaviour
     {
 		GameObject myCell = Instantiate(GoodCellObject);
 		//instantiate Cell
-		//var c = new Cell();
-		myCell.tag = "Player";
+		myCell.tag = "GoodCell";
 		Cell c = myCell.GetComponent<Cell>();
         c.isEvil = false;
 		SetCellFrequencyRange(c);
@@ -258,10 +249,9 @@ public class Game : MonoBehaviour
 	private GameObject CreateBadCell()
     {
 		GameObject myCell = Instantiate(BadCellObject);
-		//var c = new Cell();
+        myCell.tag = "BadCell";
 		Cell c = myCell.GetComponent<Cell>();
 		//c.isEvil = true;
-		//c.tag = "BadCell";
 
 		SetCellFrequencyRange(c);
 		placeCell(myCell);
@@ -269,6 +259,7 @@ public class Game : MonoBehaviour
 		return myCell;
     }
 
+    // This doesn't seem random enough. Things appear broadly along a \ shape.
 	private void placeCell(GameObject c)
 	{
 		float xPosition;
@@ -281,5 +272,27 @@ public class Game : MonoBehaviour
 		position.y = (Mathf.Abs(DistFromCenter - xPosition) / (DistFromCenter - xPosition)) * Mathf.Pow(Mathf.Abs(Mathf.Pow(DistFromCenter, 2) - Mathf.Pow(xPosition, 2)), 0.5f);
 
 		c.transform.SetPositionAndRotation(position, c.transform.localRotation);
+
+        // It would be nice to randomly assign the SpriteRendered.OrderInLayer value to a unique number.
+        // As it is right now, all Bad Cells are on Layer 0, and all Good Cells are on Layer 1.
 	}
+
+    void SetDifficulty(int level)
+    {
+        var totalCells = 1000;
+        var badToGoodCellRatio = 0.9f + (level * 0.4f);
+
+        BadCells = (int) (totalCells * badToGoodCellRatio / (badToGoodCellRatio + 1));
+        GoodCells = totalCells - BadCells;
+
+        //Debug.Log("badToGoodCellRatio: "+badToGoodCellRatio+" BadCells: "+BadCells+ "GoodCells: "+GoodCells);
+
+        cfr_difficultyModifier -= level * 25;   // Tighten the difference in frequencies until they're almost the same.
+
+        // ...but not completely the same
+        if (cfr_difficultyModifier < 10)
+        {
+            cfr_difficultyModifier = 10;
+        }
+    }
 }
