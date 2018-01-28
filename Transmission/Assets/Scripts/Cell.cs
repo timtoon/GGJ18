@@ -9,74 +9,30 @@ public class Cell : MonoBehaviour {
 	private StatePointer currentState;
 	private StatePointer OkState;
 
-
 	public bool isEvil = true;
-	public float health = 5f;
-	public float maxHealth = 5f;
-	public bool canHeal = false;
+	public float Health = 5f;
+	public float Scale = 1f;
 	
 	public float loResponseFreq;
     public float hiResponseFreq;
 
-	public float maxSize = 5f;
 	// Original Color
 	private Color OriginalColor;
-
-
-
 
 	//------------------------- System functions.
 	// Use this for initialization
 	void Start () 
 	{
-
 		// Testing only///
 		OriginalColor = gameObject.GetComponent<SpriteRenderer>().color;
 
-		if (canHeal)
-			OkState = isOK;
-		else
-		{
-			OkState = isOKRegenerate;
-		}
-
-		maxHealth = health;
-		//currentState = isOK;
-		//currentState = new StatePointer(isOK);
 		setStateOk();
-
-		
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		currentState();
-		MoveRandomly();
-		/*
-        if(health <= 0) {
-            // Play death animation
-            // Die, Destroy(this,1);
-        }
-		
-        var frequency = 100; // Get this from the current input
-
-        if(frequency >= loResponseFreq && frequency <= hiResponseFreq) {
-            setStateDying();
-            IsHurting();
-        } else {
-            setStateOk();
-        }
-		*/
-	}
-
-	void MoveRandomly()
-	{
-		Vector3 newPosition = gameObject.transform.position;
-		newPosition.x = newPosition.x + ((Random.value - .5f) * .01f);
-		newPosition.y = newPosition.y + ((Random.value - .5f) * .01f);
-		if (Mathf.Sqrt(Mathf.Pow(newPosition.x, 2f) + Mathf.Pow(newPosition.y,2f)) != Game.instance.radius)
-			gameObject.transform.SetPositionAndRotation(newPosition, gameObject.transform.rotation);
 	}
 
 	// ------------------- Object updates...
@@ -87,42 +43,34 @@ public class Cell : MonoBehaviour {
 	}
 	private void setSize(float size)
 	{
-		gameObject.transform.localScale = new Vector3(size, size);
 	}
 	//------------------------------ States
 
 	private void IsHurting()
 	{
-		health -= Time.deltaTime;
-		if (health < 0)
+		Health -= Time.deltaTime;
+        Shake();
+		if (Health < 0)
 		{
 			die();
 			gameObject.SetActive(false);
 			//Destroy(gameObject);
 		}
-		else
-		{
-			setSize((1 - (health / maxHealth)) * maxSize + 1);
-		}
 	}
 
 	private void isOKRegenerate()
 	{
-		health = (health < maxHealth) ? health + Time.deltaTime : maxHealth;
-		setSize((1 - (health / maxHealth)) * maxSize + 1);
 	}
-	private void isOK()
-	{
-		//health = (health < maxHealth) ? health + Time.deltaTime : maxHealth;
-		//setSize((1 - (health / maxHealth)) * maxSize + 1);  
-	}
-	public void dead()
-	{
 
+    private void isOK()
+	{
+	}
+
+    public void dead()
+	{
 	}
 
 	//--------------------------------- Interaction
-
 	public void Activate(float newFrequency)
 	{
 		if (newFrequency >= loResponseFreq && newFrequency <= hiResponseFreq)
@@ -159,7 +107,18 @@ public class Cell : MonoBehaviour {
 	public void die()
 	{
 		currentState = dead;
+        Scale += 0.1f;
+        setSize(Scale);
 		Game.instance.SetDie(this.gameObject);
 		//Destroy(gameObject);
 	}
+
+    void Shake()
+    {
+        Vector3 newPosition = gameObject.transform.position;
+        newPosition.x += (Random.value - .5f) * .2f;
+        newPosition.y += (Random.value - .5f) * .2f;
+        if (Mathf.Sqrt(Mathf.Pow(newPosition.x, 2f) + Mathf.Pow(newPosition.y, 2f)) != Game.instance.radius)
+            gameObject.transform.SetPositionAndRotation(newPosition, gameObject.transform.rotation);
+    }
 }

@@ -574,12 +574,12 @@ Prefab:
     - target: {fileID: 114278764355686822, guid: c61327f24303b421489d186abbba9efb,
         type: 2}
       propertyPath: GoodCells
-      value: 30
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114278764355686822, guid: c61327f24303b421489d186abbba9efb,
         type: 2}
       propertyPath: BadCells
-      value: 30
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114278764355686822, guid: c61327f24303b421489d186abbba9efb,
         type: 2}
@@ -594,7 +594,7 @@ Prefab:
     - target: {fileID: 114278764355686822, guid: c61327f24303b421489d186abbba9efb,
         type: 2}
       propertyPath: radius
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 212460759865434080, guid: c61327f24303b421489d186abbba9efb,
         type: 2}
