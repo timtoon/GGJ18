@@ -35,9 +35,9 @@ public class Game : MonoBehaviour
 	public int cfr_loFrequency = 100;
 	public int cfr_hiFrequency = 4000;
 
-	//private float LastFrequency;
+    //private float LastFrequency;
 
-	private List<GameObject> Cells = new List<GameObject>();
+    private List<GameObject> Cells = new List<GameObject>();
 
 	private void Awake()
 	{
@@ -170,6 +170,8 @@ public class Game : MonoBehaviour
 			{
 				winLevel();		
 			}
+            AudioSource[] deathSFX = GetComponents<AudioSource>();
+            deathSFX[Random.Range(9, 12)].Play();
 		}
 		else
 		{
@@ -179,22 +181,24 @@ public class Game : MonoBehaviour
 			{
 				loseLevel();
 			}
+            AudioSource[] deathSFX = GetComponents<AudioSource>();
+            deathSFX[Random.Range(6, 9)].Play();
 		}
 		Cells.Remove(DeadCell);
 		//Cells.FindIndex(DeadCell)
 	}
 	public void winLevel()
 	{
-		print("You won the level");
+        print("You won the level");
         AudioSource[] endSFX = GetComponents<AudioSource>();
-        endSFX[Random.Range(0, 3)].Play();
+        endSFX[Random.Range(0, 3)].Play(40000);
 
 	}
 	public void loseLevel()
 	{
 		print("You lost the level");
         AudioSource[] endSFX = GetComponents<AudioSource>();
-        endSFX[Random.Range(3, 6)].Play();
+        endSFX[Random.Range(3, 6)].Play(40000);
 	}
 
 	//----------------------------------------- POPULATIONS

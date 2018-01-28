@@ -158,7 +158,7 @@ public class Cell : MonoBehaviour {
 
 	public void die()
 	{
-		currentState = dead;
+        currentState = dead;
 		Game.instance.SetDie(this.gameObject);
 		//Destroy(gameObject);
 	}
