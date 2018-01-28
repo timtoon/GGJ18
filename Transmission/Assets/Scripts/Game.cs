@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 using System.Linq;
 
@@ -179,18 +179,23 @@ public class Game : MonoBehaviour
 		Cells.Remove(DeadCell);
 		//Cells.FindIndex(DeadCell)
 	}
-	public void winLevel()
+
+    public void winLevel()
 	{
         print("You won the level");
+        Level++;
         AudioSource[] endSFX = GetComponents<AudioSource>();
         endSFX[Random.Range(0, 3)].Play(40000);
-
+        SceneManager.LoadScene("WinScreen");
 	}
-	public void loseLevel()
+
+    public void loseLevel()
 	{
 		print("You lost the level");
+        Level = 1;
         AudioSource[] endSFX = GetComponents<AudioSource>();
         endSFX[Random.Range(3, 6)].Play(40000);
+        SceneManager.LoadScene("LoseScreen");
 	}
 
 	//----------------------------------------- POPULATIONS

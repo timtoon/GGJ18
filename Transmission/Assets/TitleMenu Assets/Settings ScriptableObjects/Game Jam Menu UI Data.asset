@@ -27,4 +27,4 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0
   font: {fileID: 12800000, guid: b51a3e520f9164da198dc59c8acfccd6, type: 3}
-  textColor: {r: 0.2310405, g: 0.13624568, b: 0.2647059, a: 1}
+  textColor: {r: 0.939327, g: 0.884, b: 0.15214103, a: 1}
