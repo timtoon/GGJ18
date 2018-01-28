@@ -7,13 +7,17 @@ public class Cell : MonoBehaviour {
 
 	private delegate void StatePointer();
 	private StatePointer currentState;
+	private StatePointer OkState;
 
-    public bool isEvil = true;
+
+	public bool isEvil = true;
 	public float health = 5f;
-
+	public float maxHealth = 5f;
+	public bool canHeal = false;
+	
 	public float loResponseFreq;
     public float hiResponseFreq;
-	public float maxHealth = 5f;
+
 	public float maxSize = 5f;
 	// Original Color
 	private Color OriginalColor;
@@ -29,7 +33,12 @@ public class Cell : MonoBehaviour {
 		// Testing only///
 		OriginalColor = gameObject.GetComponent<SpriteRenderer>().color;
 
-
+		if (canHeal)
+			OkState = isOK;
+		else
+		{
+			OkState = isOKRegenerate;
+		}
 
 		maxHealth = health;
 		//currentState = isOK;
@@ -43,7 +52,7 @@ public class Cell : MonoBehaviour {
 	void Update () 
 	{
 		currentState();
-
+		MoveRandomly();
 		/*
         if(health <= 0) {
             // Play death animation
@@ -59,6 +68,15 @@ public class Cell : MonoBehaviour {
             setStateOk();
         }
 		*/
+	}
+
+	void MoveRandomly()
+	{
+		Vector3 newPosition = gameObject.transform.position;
+		newPosition.x = newPosition.x + ((Random.value - .5f) * .01f);
+		newPosition.y = newPosition.y + ((Random.value - .5f) * .01f);
+		if (Mathf.Sqrt(Mathf.Pow(newPosition.x, 2f) + Mathf.Pow(newPosition.y,2f)) != Game.instance.radius)
+			gameObject.transform.SetPositionAndRotation(newPosition, gameObject.transform.rotation);
 	}
 
 	// ------------------- Object updates...
@@ -88,11 +106,15 @@ public class Cell : MonoBehaviour {
 		}
 	}
 
-
-    private void isOK()
+	private void isOKRegenerate()
+	{
+		health = (health < maxHealth) ? health + Time.deltaTime : maxHealth;
+		setSize((1 - (health / maxHealth)) * maxSize + 1);
+	}
+	private void isOK()
 	{
 		//health = (health < maxHealth) ? health + Time.deltaTime : maxHealth;
-		setSize((1 - (health / maxHealth)) * maxSize + 1);  
+		//setSize((1 - (health / maxHealth)) * maxSize + 1);  
 	}
 	public void dead()
 	{
@@ -126,7 +148,7 @@ public class Cell : MonoBehaviour {
 
     public void setStateOk()
 	{
-		currentState = isOK;
+		currentState = OkState;
 		//print("I'm now OK");
 		// Testing only....
 		gameObject.GetComponent<SpriteRenderer>().color = OriginalColor;
