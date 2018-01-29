@@ -169,7 +169,7 @@ public class Game : MonoBehaviour
 			}
             AudioSource[] deathSFX = GetComponents<AudioSource>();
             //deathSFX[Random.Range(9, 12)].Play();
-            deathSFX[Random.Range(12, 15)].Play();
+            deathSFX[Random.Range(3, 6)].Play();
 		}
 		else
 		{
@@ -181,7 +181,7 @@ public class Game : MonoBehaviour
 			}
             AudioSource[] deathSFX = GetComponents<AudioSource>();
             //deathSFX[Random.Range(6, 9)].Play();
-            deathSFX[Random.Range(12, 15)].Play();
+            deathSFX[Random.Range(3, 6)].Play();
 		}
 		Cells.Remove(DeadCell);
 		//Cells.FindIndex(DeadCell)
