@@ -86,16 +86,17 @@ public class Cell : MonoBehaviour {
         AudioSource[] hurtingSFX = GetComponents<AudioSource>();
         hurtingSFX[Random.Range(0, 3)].Play();
         // Testing only....
-		gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+		//gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
 	}
 
     public void setStateOk()
 	{
 		currentState = OkState;
+        //play idle animation
         Animator animator = gameObject.GetComponent<Animator>();
         animator.SetBool("ishurting", false);
         // Testing only....
-		gameObject.GetComponent<SpriteRenderer>().color = OriginalColor;
+		//gameObject.GetComponent<SpriteRenderer>().color = OriginalColor;
 	}
 
 	public void die()

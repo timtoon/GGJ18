@@ -67,7 +67,7 @@ public class WaveEffect : MonoBehaviour
         if (wave_audio != null)
         {
             wave_audio.Play();
-            wave_audio.Play(44100); // 44100
+            wave_audio.PlayDelayed(1); // 44100
         }
     }
 
