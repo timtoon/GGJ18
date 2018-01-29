@@ -15,7 +15,8 @@ public class LoseScreenMenu : MonoBehaviour {
 		
 	}
 	public void MainMenuButton()
-	{
-		SceneManager.LoadScene("TitleScreen");
+	{     
+        Destroy(GameObject.Find("Menu UI"));
+        SceneManager.LoadScene("TitleScreen");
 	}
 }

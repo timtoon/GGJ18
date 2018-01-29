@@ -198,8 +198,6 @@ public class Game : MonoBehaviour
 	{
 		print("You lost the level");
         Level = 1;
-        AudioSource[] endSFX = GetComponents<AudioSource>();
-        endSFX[Random.Range(3, 6)].Play(40000);
         SceneManager.LoadScene("LoseScreen");
 	}
 
