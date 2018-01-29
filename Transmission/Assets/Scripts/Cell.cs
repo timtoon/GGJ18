@@ -53,8 +53,8 @@ public class Cell : MonoBehaviour {
         if (Health < 0)
 		{
 			die();
-			gameObject.SetActive(false);
-			//Destroy(gameObject);
+			//gameObject.SetActive(false);
+			Destroy(gameObject);
 		}
 	}
 
