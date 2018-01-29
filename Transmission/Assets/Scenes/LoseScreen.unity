@@ -183,6 +183,17 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 156880, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
   m_PrefabInternal: {fileID: 1701481403}
+--- !u!114 &870626212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 870626211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2f14451f37b492498bd8f1b7dc1227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &870626213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -613,10 +624,10 @@ Prefab:
     - target: {fileID: 11487658, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 870626213}
+      objectReference: {fileID: 870626212}
     - target: {fileID: 11487658, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BackButton
+      value: MainMenuButton
       objectReference: {fileID: 0}
     - target: {fileID: 22461148, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
       propertyPath: m_LocalScale.x
@@ -633,6 +644,14 @@ Prefab:
     - target: {fileID: 22461148, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
       propertyPath: m_LocalScale.y
       value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 22491550, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402634, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
