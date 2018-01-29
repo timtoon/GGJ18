@@ -19,7 +19,7 @@ public class Game : MonoBehaviour
 
 	public float radius;
 
-    public int Level = 1;
+    public static int Level = 1;
 
 	// Delay the killing action of the frequency
 	private static float frequencyAttackDelay_Static = 1f;
@@ -188,7 +188,7 @@ public class Game : MonoBehaviour
         Level++;
         AudioSource[] endSFX = GetComponents<AudioSource>();
         endSFX[Random.Range(0, 3)].Play(40000);
-        SceneManager.LoadScene("WinScreen");
+        SceneManager.LoadScene("GameScene");
 	}
 
     public void loseLevel()
