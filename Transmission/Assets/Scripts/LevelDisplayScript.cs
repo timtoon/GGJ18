@@ -14,7 +14,7 @@ public class LevelDisplayScript : MonoBehaviour {
 	void Update () {
         GameObject gobg = GameObject.Find("GameObject");
         Game gobj = FindObjectOfType(typeof(Game)) as Game;
-		int level = 12;
-		GameObject.Find("Level").GetComponent<UnityEngine.UI.Text>().text = "Level\n12" + level;
+		int level = gobj.getLevel();
+		GameObject.Find("Level").GetComponent<UnityEngine.UI.Text>().text = "Level\n" + level.ToString();
     }
 }

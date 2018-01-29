@@ -309,4 +309,8 @@ public class Game : MonoBehaviour
             cfr_difficultyModifier = 10;
         }
     }
+
+	public int getLevel() {
+		return Level;
+	}
 }
