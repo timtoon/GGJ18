@@ -54,6 +54,11 @@ public class Game : MonoBehaviour
     // Use this for initialization
 	void Start () 
 	{
+        if(Level != 1)
+        {
+            AudioSource[] endSFX = GetComponents<AudioSource>();
+            endSFX[Random.Range(0, 3)].Play();
+        }
         InitFrequency();
         SetDifficulty(Level);
 		populateDish();
@@ -186,8 +191,6 @@ public class Game : MonoBehaviour
 	{
         print("You won the level");
         Level++;
-        AudioSource[] endSFX = GetComponents<AudioSource>();
-        endSFX[Random.Range(0, 3)].Play(40000);
         SceneManager.LoadScene("GameScene");
 	}
 
