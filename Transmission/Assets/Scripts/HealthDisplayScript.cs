@@ -15,10 +15,7 @@ public class HealthDisplayScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        GameObject gobg = GameObject.Find("GameObject");
         Game gobj = FindObjectOfType(typeof(Game)) as Game;
-        int bad = gobj.GoodCells;
-        int good = gobj.BadCells;
 
         float health = ((float)gobj.GoodCells) / ((float) gobj.GoodCells + gobj.BadCells);
         int health_disp = (int) Mathf.Round(health * 100f);

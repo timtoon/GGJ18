@@ -48,7 +48,6 @@ public class Game : MonoBehaviour
 			Destroy(gameObject);
 		}
 		instance = this;
-        DontDestroyOnLoad(instance);
 		
 	}
 
@@ -62,7 +61,7 @@ public class Game : MonoBehaviour
         }
         InitFrequency();
         SetDifficulty(Level);
-		populateDish();
+		PopulateDish();
 	}
 
 	void InitFrequency()
@@ -82,8 +81,7 @@ public class Game : MonoBehaviour
 	}
 	void DelayEffect()
 	{
-		frequencyAttackEnable = OkToKillCells();
-		if (frequencyAttackEnable)
+        if (OkToKillCells())
 			InputDataUpdateFrequency(frequency);
 	}
 
@@ -93,7 +91,6 @@ public class Game : MonoBehaviour
 		int f = GetFrequency();
 		if (f != frequencyOld)
 		{
-            GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>().text = f.ToString();
 //			print("Frequency: "+frequency);
 			InputDataUpdateFrequency(f);
 			frequencyOld = f;
@@ -143,14 +140,15 @@ public class Game : MonoBehaviour
 
 	public void InputDataUpdateFrequency(float frequency)
 	{
-		//using System.Linq;
-		//int max = Cells.Count;
-		for (int x = 0; x < Cells.Count; x++)
-		{
-			GameObject C = Cells.ElementAt<GameObject>(x);
-			Cell myCell = C.GetComponent<Cell>();
-			myCell.Activate(frequency);
-		}
+        foreach (var cell in Cells)
+        {
+            var cellScript = cell.GetComponent<Cell>();
+            cellScript.Activate(frequency);
+        }
+
+        // just kill these cells
+        var activeCells = Cells.Select(x => x.GetComponent<Cell>().loResponseFreq >= frequency && x.GetComponent<Cell>().hiResponseFreq <= frequency);
+
 	}
 
 	//----------------------------------------- End of game Checking
@@ -207,10 +205,8 @@ public class Game : MonoBehaviour
 
 	//----------------------------------------- POPULATIONS
 
-	public void populateDish()
+	public void PopulateDish()
 	{
-		Debug.Log ("populateDish");
-
         // doubled the Cell counts to put each cell on its own even/odd layer
 		for (int x = 1; x < GoodCells*2; x+=2)
 		{
@@ -258,7 +254,7 @@ public class Game : MonoBehaviour
         c.isEvil = false;
 
         SetCellFrequencyRange(c);
-		placeCell(myCell);
+		PlaceCell(myCell);
 
 		return myCell;
     }
@@ -271,19 +267,14 @@ public class Game : MonoBehaviour
 		//c.isEvil = true;
 
 		SetCellFrequencyRange(c);
-		placeCell(myCell);
+		PlaceCell(myCell);
 
 		return myCell;
     }
 
-    // This doesn't seem random enough. Things appear broadly along a \ shape.
-	private void placeCell(GameObject c)
+	private void PlaceCell(GameObject c)
 	{
-		float xPosition;
-		float DistFromCenter;
 		Vector3 position = new Vector3();
-		DistFromCenter = (Random.value - 0.5f) * 2f * radius;
-		xPosition = (Random.value - 0.5f) * 2f * radius;
 
         float angle = 6.28f * Random.value;
         float dist = (Random.value - 0.5f) * 2f * radius;
