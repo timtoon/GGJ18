@@ -18,6 +18,7 @@ public class Game : MonoBehaviour
 	public GameObject BadCellObject;
 
 	public float radius;
+    public int cellLayer;
 
     public static int Level = 1;
 
@@ -29,12 +30,12 @@ public class Game : MonoBehaviour
 	public bool frequencyAttackEnable;
 
 	// Parameters for Cell Frequency Response range
-	private int cfr_startingRange = 3000;
+	private int cfr_startingRange = 3500;
 	private int cfr_randomOffset = 950;
 	private int cfr_randomVariance = 475;
 	private int cfr_difficultyModifier = 300; // Overlap between Bad/Good Cells; lower is harder.
-	public int cfr_loFrequency = 100;
-	public int cfr_hiFrequency = 4000;
+	public int CFRLoFrequency = 100;
+	public int CFRHiFrequency = 4000;
 
     //private float LastFrequency;
 
@@ -47,7 +48,7 @@ public class Game : MonoBehaviour
 			Destroy(gameObject);
 		}
 		instance = this;
-		GameObject.DontDestroyOnLoad(instance);
+        DontDestroyOnLoad(instance);
 		
 	}
 
@@ -66,7 +67,7 @@ public class Game : MonoBehaviour
 
 	void InitFrequency()
 	{
-		cfr_startingRange = (cfr_loFrequency + cfr_hiFrequency) / 2;
+		cfr_startingRange = (CFRLoFrequency + CFRHiFrequency) / 2;
 		cfr_randomOffset = cfr_startingRange / 2;
 		cfr_randomVariance = cfr_randomOffset / 2;
 	}
@@ -89,13 +90,13 @@ public class Game : MonoBehaviour
 	void DirectEffect()
 	{
 		// Get the X position of the mouse
-		int frequency = GetFrequency();
-		if (frequency != frequencyOld)
+		int f = GetFrequency();
+		if (f != frequencyOld)
 		{
-            GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>().text = frequency.ToString();
+            GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>().text = f.ToString();
 //			print("Frequency: "+frequency);
-			InputDataUpdateFrequency(frequency);
-			frequencyOld = frequency;
+			InputDataUpdateFrequency(f);
+			frequencyOld = f;
 		}
 	}
 
@@ -127,15 +128,15 @@ public class Game : MonoBehaviour
 	// This shouldn't happen outside debugging, but I'm accounting for when the mouse goes outside the screen
 	private int GetFrequency()
 	{
-		var f = (int)(Input.mousePosition.x * (cfr_hiFrequency - cfr_loFrequency) / Screen.width) + cfr_loFrequency;
+		var f = (int)(Input.mousePosition.x * (CFRHiFrequency - CFRLoFrequency) / Screen.width) + CFRLoFrequency;
 
-		if (f < cfr_loFrequency)
+		if (f < CFRLoFrequency)
 		{
-			return cfr_loFrequency;
+			return CFRLoFrequency;
 		}
-		else if (f > cfr_hiFrequency)
+		else if (f > CFRHiFrequency)
 		{
-			return cfr_hiFrequency;
+			return CFRHiFrequency;
 		}
 		return f;
 	}
@@ -150,7 +151,6 @@ public class Game : MonoBehaviour
 			Cell myCell = C.GetComponent<Cell>();
 			myCell.Activate(frequency);
 		}
-			//Cell C = Cells[x].get<Cell>();
 	}
 
 	//----------------------------------------- End of game Checking
@@ -167,9 +167,6 @@ public class Game : MonoBehaviour
 			{
 				winLevel();		
 			}
-            AudioSource[] deathSFX = GetComponents<AudioSource>();
-            //deathSFX[Random.Range(9, 12)].Play();
-            deathSFX[Random.Range(3, 6)].Play();
 		}
 		else
 		{
@@ -179,9 +176,6 @@ public class Game : MonoBehaviour
 			{
 				loseLevel();
 			}
-            AudioSource[] deathSFX = GetComponents<AudioSource>();
-            //deathSFX[Random.Range(6, 9)].Play();
-            deathSFX[Random.Range(3, 6)].Play();
 		}
 		Cells.Remove(DeadCell);
 		//Cells.FindIndex(DeadCell)
@@ -190,6 +184,11 @@ public class Game : MonoBehaviour
     public void winLevel()
 	{
         print("You won the level");
+
+        AudioSource[] deathSFX = GetComponents<AudioSource>();
+        //deathSFX[Random.Range(9, 12)].Play();
+        deathSFX[Random.Range(3, 6)].Play();
+
         Level++;
         SceneManager.LoadScene("GameScene");
 	}
@@ -197,6 +196,11 @@ public class Game : MonoBehaviour
     public void loseLevel()
 	{
 		print("You lost the level");
+
+        AudioSource[] deathSFX = GetComponents<AudioSource>();
+        //deathSFX[Random.Range(6, 9)].Play();
+        deathSFX[Random.Range(3, 6)].Play();
+
         Level = 1;
         SceneManager.LoadScene("LoseScreen");
 	}
@@ -206,13 +210,17 @@ public class Game : MonoBehaviour
 	public void populateDish()
 	{
 		Debug.Log ("populateDish");
-		for (int x = 0; x < GoodCells; x++)
+
+        // doubled the Cell counts to put each cell on its own even/odd layer
+		for (int x = 1; x < GoodCells*2; x+=2)
 		{
+            cellLayer = x;
 			Cells.Add(CreateGoodCell());
 			print("Add Good Cells");
 		}
-		for (int x = 0; x < BadCells; x++)
+		for (int x = 0; x < BadCells*2; x+=2)
 		{
+            cellLayer = x;
 			Cells.Add(CreateBadCell());
 			print("Add Bad Cells");
 		}
@@ -248,7 +256,8 @@ public class Game : MonoBehaviour
 		myCell.tag = "GoodCell";
 		Cell c = myCell.GetComponent<Cell>();
         c.isEvil = false;
-		SetCellFrequencyRange(c);
+
+        SetCellFrequencyRange(c);
 		placeCell(myCell);
 
 		return myCell;
@@ -281,15 +290,9 @@ public class Game : MonoBehaviour
 
         position.x = Mathf.Cos(angle) * dist-3.5f;//(float)xPosition - 3;
         position.y = Mathf.Sin(angle) * dist;
-        // was
-        /*
-        (Mathf.Abs(DistFromCenter - xPosition) / (DistFromCenter - xPosition)) * 
-            Mathf.Pow(Mathf.Abs(Mathf.Pow(DistFromCenter, 2) - Mathf.Pow(xPosition, 2)), 0.5f);
-            */
 		c.transform.SetPositionAndRotation(position, c.transform.localRotation);
 
-		// Add a check to ensure overlapping sprites are not on the same layer
-		c.GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt (Random.value * (GoodCells + BadCells));
+        c.GetComponent<SpriteRenderer>().sortingOrder = cellLayer;
 	}
 
     void SetDifficulty(int level)
